@@ -19,12 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('post', PostController::class);
+Route::group(['middleware' => 'backhistory'], function(){
+
+    Route::resource('post', PostController::class)->middleware('auth');
+    Route::get('/',[LoginController::class, 'login'])->name('login')->middleware('guest');
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+});
+
 
 // Route::get('/', [LoginController::class, 'home']);
-Route::get('/',[LoginController::class, 'login']);
 Route::post('actionlogin', [Logincontroller::class, 'actionlogin']);
-Route::get('logout', [LoginController::class, 'logout']);
 
 Route::get('/auth/redirect', [LoginController::class, 'redirectToProvider']);
 Route::get('/auth/callback', [LoginController::class, 'handleProviderCallback']);
