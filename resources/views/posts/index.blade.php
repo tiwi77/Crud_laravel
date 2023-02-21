@@ -18,20 +18,26 @@
 
                 <!-- Notifikasi menggunakan flash session data -->
                 @if (session('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     {{ session('success') }}
                 </div>
                 @endif
 
                 @if (session('error'))
-                <div class="alert alert-error">
+                <div class="alert alert-erroralert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     {{ session('error') }}
                 </div>
                 @endif
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('post.create') }}" class="btn btn-md btn-success mb-3 float-right">New
+                        <a href="{{ route('post.create') }}" class="btn btn-outline-success mb-3 float-right">New
                             Post</a>
 
                         <table class="table table-bordered mt-1">
@@ -58,7 +64,7 @@
                                                 class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                            <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -66,6 +72,7 @@
                                 <tr>
                                     <td class="text-center text-mute" colspan="4">Data post tidak tersedia</td>
                                 </tr>
+                                <a type="button" class="btn btn-outline-danger" href="/logout">Log-Out</a>
                                 @endforelse
                             </tbody>
                         </table>
@@ -77,6 +84,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </body>
 

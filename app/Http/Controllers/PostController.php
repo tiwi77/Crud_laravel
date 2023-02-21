@@ -24,7 +24,7 @@ class PostController extends Controller
         return view('posts.create', $data);
     }
 
-
+    //POST Create
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -64,7 +64,7 @@ class PostController extends Controller
     }
 
 
-
+    //POST update
     public function update(Request $request, $id)
     {
         $this->validate($request, [

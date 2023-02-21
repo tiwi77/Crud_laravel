@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,12 @@ Route::get('/', function () {
 });
 
 Route::resource('post', PostController::class);
+
+// Route::get('/', [LoginController::class, 'home']);
+Route::get('/',[LoginController::class, 'login']);
+Route::post('actionlogin', [Logincontroller::class, 'actionlogin']);
+Route::get('logout', [LoginController::class, 'logout']);
+
+Route::get('/auth/redirect', [LoginController::class, 'redirectToProvider']);
+Route::get('/auth/callback', [LoginController::class, 'handleProviderCallback']);
+
