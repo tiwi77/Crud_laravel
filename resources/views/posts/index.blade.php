@@ -16,6 +16,14 @@
         <div class="row">
             <div class="col-md-12">
 
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <p>
+                        <h5>Login Aktif : <b>{{Auth::user()->name}}</b>, sebagai <b>{{Auth::user()->role}}</b>.</h5>
+                        </p>
+                    </div>
+                </div>
+
                 <!-- Notifikasi menggunakan flash session data -->
                 @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -31,12 +39,14 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                    {{ session('error') }}
-                </div>
-                @endif
+                      {{ session('error') }}
+                    </div>
+                    @endif
 
-                <div class="card border-0 shadow rounded">
-                    <div class="card-body">
+                    <div class="card border-0 shadow rounded">
+                        <div class="card-body">
+                            <h3>Data Post</h3>
+                        <a type="button" class="btn btn-outline-danger float-left" href="/logout">Log-Out</a>
                         <a href="{{ route('post.create') }}" class="btn btn-outline-success mb-3 float-right">New
                             Post</a>
 
@@ -46,7 +56,6 @@
                                     <th scope="col">Title</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Create At</th>
-                                    <th scope="col">Content</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -56,7 +65,6 @@
                                     <td>{{ $post->title }}</td>
                                     <td>{{ $post->status == 0 ? 'Draft':'Publish' }}</td>
                                     <td>{{ $post->created_at->format('d-m-Y') }}</td>
-                                    <td>{{ $post->content }}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('post.destroy', $post->id) }}" method="POST">
@@ -64,7 +72,9 @@
                                                 class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
+                                            @can('IsAdmin')
                                             <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>
@@ -72,7 +82,6 @@
                                 <tr>
                                     <td class="text-center text-mute" colspan="4">Data post tidak tersedia</td>
                                 </tr>
-                                <a type="button" class="btn btn-outline-danger" href="/logout">Log-Out</a>
                                 @endforelse
                             </tbody>
                         </table>

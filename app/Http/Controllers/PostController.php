@@ -10,8 +10,17 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = PostModel::latest()->get();
-        return view('posts.index', compact('posts'));
+        // $posts = PostModel::latest()->get();
+        // return view('posts.index', compact('posts'));
+
+        return view('posts.index', [
+            'title' => 'Main Page',
+            'posts' => PostModel::where('user_id', Auth()->user()->id)->get()
+        ]);
+        return view('posts.index', [
+            'title' => 'Main Page admin',
+            'posts' => PostModel::all()
+        ]);
     }
 
 
